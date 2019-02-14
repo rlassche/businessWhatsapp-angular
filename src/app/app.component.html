@@ -1,0 +1,19 @@
+<h1> Angular WebSockets Tutorial </h1>
+
+chat url: {{chat_url}}
+
+<form #wsForm="ngForm" (ngSubmit)="sendMsg()">
+  <div class="form-group">
+    <label for="author">Author</label>
+    <input type="text" class="form-control" id="author" name="author" [(ngModel)]="message.author" required>
+  </div>
+  <div class="form-group">
+    <label for="message">Message</label>
+    <input type="text" class="form-control" id="message" name="message" [(ngModel)]="message.message" required>
+  </div>
+  <button class="btn btn-info" [disabled]="!wsForm.valid"> Send Message</button>
+</form>
+<div class="form-group">
+  <label for="exampleFormControlTextarea1">Response</label>
+  <textarea class="form-control rounded-0" id="ws_response" rows="10" [(ngModel)]="wsResponse"></textarea>
+</div>
