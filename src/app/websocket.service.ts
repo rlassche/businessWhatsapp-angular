@@ -8,16 +8,10 @@ export class WebsocketService {
 
   private subject: Subject<MessageEvent>;
 
-  public connect(url:string): Subject<MessageEvent> {
-    if (!this.subject) {
-      this.subject = this.create(url);
-      console.log("Successfully connected to: " + url);
-    }
-    return this.subject;
-  }
 
-  private create(url:string): Subject<MessageEvent> {
-    console.log( 'websocket.service: create: '+url)
+
+  private create(url: string): Subject<MessageEvent> {
+    console.log('websocket.service: create: ' + url)
     let ws: WebSocket = new WebSocket(url);
 
     //
@@ -40,16 +34,23 @@ export class WebsocketService {
           console.log('observer send: data: ', data);
           ws.send(JSON.stringify(data));
         } else {
-          console.log( "Websocket is NOT open!!")
-          this.create( url )
+          console.log("Websocket is NOT open!!")
+          this.create(url)
         }
       },
       error: (err) => {
-        console.log( 'observer: error: ', err)
+        console.log('observer: error: ', err)
       }
     }
     // A Subject is an Observer AND observable
     return Subject.create(observer, observable);
+  }
+  public connect(url: string): Subject<MessageEvent> {
+    if (!this.subject) {
+      this.subject = this.create(url);
+      console.log("Successfully connected to: " + url);
+    }
+    return this.subject;
   }
 
 }

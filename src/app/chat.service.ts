@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 import { WebsocketService } from './websocket.service';
 import { CHAT_URL, UserMessage } from './config';
 
@@ -18,5 +17,4 @@ export class ChatService {
     this.messages = <Subject<MessageEvent>>this.wsService
       .connect(CHAT_URL)
   }
-
 }

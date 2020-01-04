@@ -10,6 +10,10 @@ import { CHAT_URL, UserMessage } from './config';
   providers: [WebsocketService, ChatService]
 })
 export class AppComponent {
+  public chatMessage:UserMessage = {
+    author: 'tutorialedge',
+    message: 'this is a test message from the client'
+  }
   title = 'rxjs6';
   chat_url:string;
   wsResponse:string = '';
@@ -25,7 +29,6 @@ export class AppComponent {
     chatService.messages.subscribe(
       (msg: MessageEvent) => {
         let user_msg:UserMessage = JSON.parse(msg.data);
-
         //console.log("Response from server (MessageEvent, column data): ", msg.data);
         //console.log("MessageEvent type: (MessageEvent, column type): ", msg.type);
         //console.log("MessageEvent origin: (MessageEvent, column origin): ", msg.origin);
@@ -50,13 +53,7 @@ export class AppComponent {
       (a => { this.connectionIsOpen = false;  this.chatService.reconnect() ; console.log("COMPLETE") }));
   }
 
-  public message:UserMessage = {
-    author: 'tutorialedge',
-    message: 'this is a test message from the client'
-  }
-
-
   sendMsg( ) {
-    this.chatService.messages.next(this.message);
+    this.chatService.messages.next(this.chatMessage);
   }
 }
