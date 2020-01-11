@@ -6,6 +6,16 @@ import { UserMessage } from './config';
 export class WebsocketService {
   constructor() { }
 
+  // A Subject is an :
+  //  1.  Observable and an 
+  //  2.  Observer. 
+  //
+  // You can SUBSCRIBE to a Subject, and you can call NEXT to feed values as well as error and complete.
+  //
+  // A Subject is a special type of Observable that allows values to be:
+  //  MULTICASTED TO MANY oBSERVERS. 
+  //
+  // Subjects are like EventEmitters.
   private subject: Subject<MessageEvent>;
 
 
@@ -17,7 +27,7 @@ export class WebsocketService {
     //
     //      OBSERVABLE
     //
-    let observable = Observable.create((obs: Observer<MessageEvent>) => {
+    let observable:Observable<MessageEvent> = Observable.create((obs: Observer<MessageEvent>) => {
       console.log('websocket.service: Observable.create');
       ws.onmessage = obs.next.bind(obs);
       ws.onerror = obs.error.bind(obs);
@@ -28,7 +38,8 @@ export class WebsocketService {
     //
     //      OBSERVER OBJECT - A handler for receiving observable notifications
     //
-    let observer = {
+    let observer= {
+      // Received client data will be send through the websocket
       next: (data: UserMessage) => {
         if (ws.readyState === WebSocket.OPEN) {
           console.log('observer send: data: ', data);
