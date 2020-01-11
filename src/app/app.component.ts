@@ -14,7 +14,7 @@ export class AppComponent {
     author: 'tutorialedge',
     message: 'this is a test message from the client'
   }
-  title = 'rxjs6';
+  title = 'Angular 8 with rxjs and Websockets';
   chat_url:string;
   wsResponse:string = '';
   connectionIsOpen = false;
